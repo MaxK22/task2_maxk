@@ -23,6 +23,7 @@ int main() {
     cout << "mt (+enter sizes of matrix) (+enter all matrix) - transparent" << endl;
     cout << "m*a (+enter sizes of matrix) (+enter all matrix) (+enter number) - multiplication matrix" << endl;
     cout << "m^a (+enter sizes of matrix) (+enter all matrix) - pow()" << endl;
+    cout << "dm (+enter sizes of matrix) (+enter all matrix) - determinant of the Matrix" << endl;
 
 
     string com;
@@ -40,7 +41,7 @@ int main() {
             cin >> b;
             try
             {
-                cout << "" << (a+b) << endl;
+                cout << " " << (a+b) << endl;
             }
             catch (const char* msg)
             {
@@ -58,7 +59,7 @@ int main() {
             cin >> b;
             try
             {
-                cout << "" << (a*b) << endl;
+                cout << " " << (a*b) << endl;
             }
             catch (const char* msg)
             {
@@ -73,7 +74,7 @@ int main() {
             cin >> a;
             try
             {
-                cout << "" << (a.transparent()) << endl;
+                cout << " " << (a.transparent()) << endl;
             }
             catch (const char* msg)
             {
@@ -89,7 +90,7 @@ int main() {
             cin >> n;
             try
             {
-                cout << "" << (a*n) << endl;
+                cout << " " << (a*n) << endl;
             }
             catch (const char* msg)
             {
@@ -100,12 +101,28 @@ int main() {
         {
             int m,n;
             cin >> n >> m;
-            Matrix<int> a(n,m);
+            Matrix<double> a(n,m);
             cin >> a;
             cin >> n;
             try
             {
-                cout << "" << (a^n) << endl;
+                cout << " " << (a^n) << endl;
+            }
+            catch (const char* msg)
+            {
+                cerr << "Exception caught: " << msg << endl;
+            }
+        }
+        else if(com == "dm")
+        {
+            int n;
+            cout << "Enter one number - size of matrix: ";
+            cin >> n;
+            Matrix<int> a(n,n);
+            cin >> a;
+            try
+            {
+                cout << " " << (a.determinant()) << endl;
             }
             catch (const char* msg)
             {

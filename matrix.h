@@ -10,6 +10,7 @@ using namespace std;
 template<typename T>
 class Matrix
 {
+
     int n;
     int m;
     vector< vector<T> > data;
@@ -19,6 +20,9 @@ public:
     Matrix(int n_, int m_);
     int rows() const { return n; };
     int columns() const { return m; };
+    T determinant();
+    void swap_str(vector<T> &a, vector<T> &b);
+    void swap_str(vector<T> &a, vector<T> &b, T x);
     const Matrix operator+(const Matrix&) const;
     const Matrix operator*(const Matrix&) const;
     const Matrix operator^(int) const;
@@ -68,6 +72,55 @@ const Matrix<T> Matrix<T>::operator+(const Matrix& a) const
         for (int j = 0; j < m; ++j)
             res[i].push_back(data[i][j] + a[i][j]);
     return Matrix(res);
+}
+
+template<typename T>
+void Matrix<T>::swap_str(vector<T> &a, vector<T> &b)
+{
+    vector<T> c = a;
+    a = b;
+    b = c;
+}
+
+template<typename T>
+void Matrix<T>::swap_str(vector<T> &a, vector<T> &b, T x)
+{
+    for(int i = 0; i < n; i++)
+    {
+        a[i] = a[i] - b[i] * x;
+    }
+}
+
+template<typename T>
+T Matrix<T>::determinant()
+{
+
+    if (n != m)
+        throw "Matrix hasn't match sizes";
+    vector< vector<T> > d=data;
+    for(int j = 0; j < n; j++)
+    {
+        for(int i = j+1;d[j][j]==0;i++)
+        {
+            if(i == n)
+                return 0;
+            else if(d[i][j] != 0)
+            {
+                swap_str(d[i],d[0]);
+            }
+        }
+        for(int i = j+1;i < n;i++)
+        {
+            if(d[i][j] != 0)
+            {
+                swap_str(d[i], d[j], d[i][j]/d[j][j]);
+            }
+        }
+    }
+    T ans = 1;
+    for(int i = 0; i < n; i++)
+        ans *= d[i][i];
+    return ans;
 }
 
 template<typename T>
