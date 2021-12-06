@@ -94,7 +94,7 @@ void Matrix<T>::swap_str(vector<T> &a, vector<T> &b, T x)
 template<typename T>
 T Matrix<T>::determinant()
 {
-
+    int a = 1;
     if (n != m)
         throw "Matrix hasn't match sizes";
     vector< vector<T> > d=data;
@@ -107,6 +107,7 @@ T Matrix<T>::determinant()
             else if(d[i][j] != 0)
             {
                 swap_str(d[i],d[0]);
+                a*=-1;
             }
         }
         for(int i = j+1;i < n;i++)
@@ -120,7 +121,7 @@ T Matrix<T>::determinant()
     T ans = 1;
     for(int i = 0; i < n; i++)
         ans *= d[i][i];
-    return ans;
+    return ans*a;
 }
 
 template<typename T>
